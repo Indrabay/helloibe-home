@@ -1,9 +1,12 @@
 'use client'
 import React from 'react'
 import { useEffect, useState } from "react";
-import Link from "next/link";
 
-function MenuIcon(props: any) {
+interface MyProps {
+  "data-hide": boolean
+}
+
+function MenuIcon(props: MyProps) {
   return (
     <svg
       className="h-5 w-5 absolute text-second"
@@ -31,7 +34,7 @@ function MenuIcon(props: any) {
   );
 }
 
-function CrossIcon(props: any) {
+function CrossIcon(props: MyProps) {
   return (
     <svg
       className="h-5 w-5 absolute text-second"
@@ -90,7 +93,7 @@ const Navbar = () => {
         <div className="items-center justify-between hidden md:flex md:w-auto md:order-1" id="navbar-sticky">
           <ul className="flex flex-col md:p-0 mt-4 font-medium border rounded-lg md:space-x-3 md:flex-row md:mt-0 md:border-0">
             <li>
-              <a href="/" className="block py-2 text-second rounded-sm md:bg-transparent md:p-0 hover:text-primary"><span className='text-primary'>{'{'}</span>home<span className='text-primary'>{'}'}</span></a>
+              <a href="https://helloibe.com" className="block py-2 text-second rounded-sm md:bg-transparent md:p-0 hover:text-primary"><span className='text-primary'>{'{'}</span>home<span className='text-primary'>{'}'}</span></a>
             </li>
             {/* <li>
               <a href="about" className="block py-2 text-second rounded-sm md:bg-transparent md:p-0 hover:text-primary"><span className='text-primary'>{'{'}</span>about<span className='text-primary'>{'}'}</span></a>
