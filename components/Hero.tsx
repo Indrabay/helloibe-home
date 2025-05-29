@@ -8,7 +8,7 @@ const Hero = () => {
     >
       <h1 className="heroTitle inline-block text-5xl md:text-6xl w-auto relative lg:text-7xl tracking-tighter items-center mb-10 font-medium">
         <span className='text-primary'>{'>'}</span> Hello, ibe is <span className="text-primary">me</span>
-        <Image
+        {/* <Image
           alt=''
           className="sqD squiggle-hero-html w-16 top-[-90px] right-[5%] sm:top-[-90px] sm:right-[170px]"
           style={{ animationDelay: "0.1s" }}
@@ -40,7 +40,7 @@ const Hero = () => {
           style={{ animationDelay: "0.9s" }}
           src="/static/typescript.svg"
           width={170}
-        />
+        /> */}
       </h1>
       <h2>I build robust backend systems with clean architecture and strong
         observability.</h2>
