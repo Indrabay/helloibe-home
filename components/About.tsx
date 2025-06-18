@@ -1,4 +1,4 @@
-import { Box, Center, Container, Flex, Heading, Group, Mark, Stack, Text, VStack, HStack, Timeline } from '@chakra-ui/react'
+import { Box, Center, Container, Flex, Heading, Mark, Stack, Text, VStack, Timeline } from '@chakra-ui/react'
 
 import { SiRubyonrails, SiMysql, SiReact, SiDatadog, SiApachekafka } from "react-icons/si";
 import { IoLogoJavascript } from "react-icons/io5";

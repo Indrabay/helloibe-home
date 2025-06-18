@@ -28,6 +28,7 @@ const Porfolio = () => {
             <Card.Root maxW={'md'} minW={'250px'} overflow={'hidden'} borderColor={'var(--color-primary)'}>
               <Image
                 src={'/helloibe.png'}
+                alt='helloibe preview'
               ></Image>
               <Card.Body gap='2'>
                 <Card.Title>
@@ -43,6 +44,7 @@ const Porfolio = () => {
             <Card.Root maxW={'md'} minW={'250px'} overflow={'hidden'} borderColor={'var(--color-primary)'}>
               <Image
                 src={'/helloibe.png'}
+                alt='helloibe preview'
               ></Image>
               <Card.Body gap='2'>
                 <Card.Title>
@@ -64,6 +66,7 @@ const Porfolio = () => {
           <Card.Root maxW={'md'} minW={'250px'} overflow={'hidden'} borderColor={'var(--color-primary)'}>
             <Image
               src={'/helloibe.png'}
+              alt='helloibe preview'
             ></Image>
             <Card.Body gap='2'>
               <Card.Title>

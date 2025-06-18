@@ -1,7 +1,5 @@
-import { Center, Container, Mark, Stack, Text, Link, Group, Image } from '@chakra-ui/react'
+import { Center, Container, Mark, Stack, Text, Image } from '@chakra-ui/react'
 import React from 'react'
-import { FaGithub, FaInstagram, FaLinkedin, FaTwitter, } from 'react-icons/fa'
-import { FaXTwitter } from 'react-icons/fa6'
 
 const Hero = () => {
   return (
