@@ -1,9 +1,10 @@
 import type { Metadata } from "next";
+import Provider from "./provider";
 import "./globals.css";
 
 export const metadata: Metadata = {
   title: "helloibe",
-  description: "ibe's personal website contains exciting things",
+  description: "ibe's personal website | backend developer",
 };
 
 export default function RootLayout({
@@ -12,10 +13,14 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <body
+        className="bg-primary-background"
+        style={{height: '100%', backgroundSize: '100%'}}
       >
-        {children}
+        <Provider>
+          {children}
+        </Provider>
       </body>
     </html>
   );

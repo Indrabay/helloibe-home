@@ -1,20 +1,22 @@
-import About from "@/components/About";
-import Footer from "@/components/Footer";
-import Hero from "@/components/Hero";
 import Navbar from "@/components/Navbar";
-import Portfolio from "@/components/Portfolio";
+import Hero from "@/components/Hero";
+import About from "@/components/About";
+import { Box, Container } from "@chakra-ui/react";
+import Porfolio from "@/components/Porfolio";
+import Footer from "@/components/Footer";
 
+import { Separator } from "@chakra-ui/react"
 export default function Home() {
   return (
-    <div className="px-10 lg:px-24 sm:px-5 md:px-10 w-full justify-center items-center min-h-screen opening-box-animate-paddin text-white overflow-hidden md:overflow-visible"
-    >
-      <Navbar/>
-      <Hero/>
-      <div className="mt-20 space-y-32">
+    <Box as={'main'}>
+      <Navbar />
+      <Container maxWidth={'768px'} top={'200px'} pt={14}>
+        <Hero />
         <About />
-        <Portfolio />
-      </div>
-      <Footer/>
-    </div>
+        <Porfolio />
+        <Separator borderColor={'white'}/>
+        <Footer />
+      </Container>
+    </Box>
   );
 }
