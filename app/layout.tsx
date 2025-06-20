@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Provider from "./provider";
 import "./globals.css";
+import { ReduxProvider } from "@/redux/provider";
 
 export const metadata: Metadata = {
   title: "helloibe",
@@ -16,10 +17,12 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning>
       <body
         className="bg-primary-background"
-        style={{height: '100%', backgroundSize: '100%'}}
+        style={{ height: '100%', backgroundSize: '100%' }}
       >
         <Provider>
-          {children}
+          <ReduxProvider>
+            {children}
+          </ReduxProvider>
         </Provider>
       </body>
     </html>

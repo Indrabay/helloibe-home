@@ -68,7 +68,7 @@ const Navbar = () => {
                 </Menu.Item>
                 <Menu.Item value='menu2' bg={'transparent'}>
                    <Link
-                    href='#'
+                    href='/login'
                   >login</Link>
                 </Menu.Item>
               </Menu.Content>
