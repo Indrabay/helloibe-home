@@ -2,18 +2,21 @@
 
 import { Center, Card, Button, Field, Stack, Input, Flex, Mark, Text } from '@chakra-ui/react'
 import { PasswordInput } from "@/components/ui/password-input"
-import { login } from "@/lib/login"
 import React, { useState } from 'react'
 import { logIn, AuthState } from '@/redux/features/auth'
 import { useDispatch } from 'react-redux'
 import { AppDispatch, useAppSelector } from '@/redux/store'
-import { redirect } from 'next/navigation'
+import { useRouter } from 'next/navigation'
+import { toaster } from '@/components/ui/toaster'
 
 const page = () => {
   var [email, setEmail] = useState('')
   var [password, setPassword] = useState('')
+  var [isLoading, setIsLoading] = useState(false)
 
   const dispatch = useDispatch<AppDispatch>();
+
+  const router = useRouter()
 
   function handlePasswordInput(e: React.ChangeEvent<HTMLInputElement>) {
     setPassword(e.target.value)
@@ -24,10 +27,73 @@ const page = () => {
   }
 
   async function handleLogin() {
-    await login(email, password).then(res => {
-      console.log(res)
-    })
+    if (!email || !password) {
+      toaster.create({
+        title: "Error",
+        description: "Please enter both email and password",
+      })
+      return
+    }
+
+    setIsLoading(true)
+
+    try {
+      const response = await fetch('http://localhost:9999/users/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          username: email,
+          password: password,
+        }),
+      })
+
+      if (!response.ok) {
+        // Handle non-200 status codes
+        const errorData = await response.json().catch(() => ({}))
+        const errorMessage = errorData.message || `Login failed with status: ${response.status}`
+        
+        toaster.create({
+          title: "Login Error",
+          description: errorMessage,
+        })
+        return
+      }
+
+      const data = await response.json()
+      const responseData = data.data
+
+      // Handle successful login
+      var storeId = 1
+      // TODO: handle for super admin, which have more than 1 store or no store at all
+      const payload = {
+        token: responseData.token,
+        username: responseData.user.username,
+        roleID: responseData.user.role.id,
+        storeID: storeId
+      } as AuthState
+
+      dispatch(logIn(payload))
+      
+      toaster.create({
+        title: "Success",
+        description: "Login successful!",
+      })
+
+      router.push(`/warung/${storeId}`)
+
+    } catch (error) {
+      console.error('Login error:', error)
+      toaster.create({
+        title: "Connection Error",
+        description: "Failed to connect to the server. Please try again.",
+      })
+    } finally {
+      setIsLoading(false)
+    }
   }
+
   return (
     <Center maxW={'container.md'} h='full'>
       <Card.Root maxW="sm" minW={'400px'} bg={'transparent'} border={'none'}>
@@ -47,7 +113,16 @@ const page = () => {
         </Card.Body>
         <Card.Footer>
           <Stack w={'full'}>
-            <Button variant="solid" color={'var(--color-primary-background)'} bgColor={'var(--color-primary)'} onClick={handleLogin}>LOGIN</Button>
+            <Button 
+              variant="solid" 
+              color={'var(--color-primary-background)'} 
+              bgColor={'var(--color-primary)'} 
+              onClick={handleLogin}
+              loading={isLoading}
+              loadingText="Logging in..."
+            >
+              LOGIN
+            </Button>
           </Stack>
         </Card.Footer>
       </Card.Root>

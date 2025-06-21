@@ -1,3 +1,5 @@
+'use client'
+
 import { Box, Center, Container, Flex, Heading, Mark, Stack, Text, VStack, Timeline } from '@chakra-ui/react'
 
 import { SiRubyonrails, SiMysql, SiReact, SiDatadog, SiApachekafka } from "react-icons/si";

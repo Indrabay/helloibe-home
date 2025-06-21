@@ -1,25 +1,10 @@
-async function handler (req: any, res: any) {
-  const headers = {
-      "Access-Control-Allow-Origin": "*",
-      "Content-Type": "application/json",
-      "Accept": "*/*"
-    }
-    const userLoginData = {
-      username: req.body.email,
-      password: req.body.password
-    }
+import type { NextApiRequest, NextApiResponse } from 'next'
 
-    const options = {
-      method: 'POST',
-      body: JSON.stringify(userLoginData),
-      headers
-    }
-
-    console.log("im here")
-
-    await fetch('http://localhost:9999/users/login', options).then(response => {
-      console.log('haha',response)
-    })
+type ResponseData = {
+  data: any
 }
 
-export default handler
+export default function handler(req: NextApiRequest, res: NextApiResponse) {
+  console.log('hi im called')
+  res.status(200).json({ data: { message: 'hi'}})
+}

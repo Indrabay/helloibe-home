@@ -1,3 +1,5 @@
+'use client'
+
 import { Center, Container, Mark, Stack, Text, Image } from '@chakra-ui/react'
 import React from 'react'
 

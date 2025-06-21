@@ -1,3 +1,5 @@
+'use client'
+
 import { Container, Flex, Group, Text, HStack, Link, VStack } from '@chakra-ui/react'
 import React from 'react'
 import { FaInstagram, FaGithub, FaLinkedin } from "react-icons/fa";
