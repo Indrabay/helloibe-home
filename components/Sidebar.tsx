@@ -81,10 +81,11 @@ const Sidebar: React.FC<SidebarProps> = ({
                 size="sm"
                 aria-label="User menu"
                 onClick={() => setShowUserMenu(!showUserMenu)}
-                children="👤"
                 color="rgba(255, 255, 255, 0.8)"
                 _hover={{ bg: 'rgba(255, 255, 255, 0.1)' }}
-              />
+              >
+                👤
+              </IconButton>
             </HStack>
             {showUserMenu && (
               <Box

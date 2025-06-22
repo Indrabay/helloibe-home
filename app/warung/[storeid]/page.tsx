@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useCallback } from 'react'
 import { useParams } from 'next/navigation'
 import { useAppSelector } from '@/redux/store'
 import { useRouter } from 'next/navigation'
@@ -69,7 +69,7 @@ const DashboardPage = () => {
     }
   }, [auth, storeId, router])
 
-  const fetchDashboardData = async () => {
+  const fetchDashboardData = useCallback(async () => {
     try {
       // Fetch store data (product count and price count)
       const storeResponse = await fetch(`http://localhost:9999/warung/${storeId}`, {
@@ -86,12 +86,11 @@ const DashboardPage = () => {
       const responseStoreData = await storeResponse.json()
       console.log('API Response:', responseStoreData)
       
-      var objectStoreData = {
+      const objectStoreData = {
         product_count: responseStoreData.data.product_count,
         price_count: responseStoreData.data.price_count,
       } as StoreData
       setStoreData(objectStoreData)
-      console.log('Processed store data:', objectStoreData)
 
       // Fetch recent products
       const productsResponse = await fetch(`http://localhost:9999/warung/${storeId}/products/prices?limit=5`, {
@@ -107,7 +106,7 @@ const DashboardPage = () => {
 
       const productsData = await productsResponse.json()
       console.log(productsData.data)
-      const productDataObject = productsData.data.data.map((product: any) => ({  
+      const productDataObject = productsData.data.data.map((product: Product) => ({  
         id: product.id,
         name: product.name,
         sku: product.sku,
@@ -132,18 +131,13 @@ const DashboardPage = () => {
       setIsLoading(false)
       setIsRefreshing(false)
     }
-  }
+  }, [storeId, auth.token])
 
   useEffect(() => {
     if (auth.token && auth.storeID === parseInt(storeId)) {
       fetchDashboardData()
     }
-  }, [auth.token, storeId])
-
-  // Monitor storeData state changes
-  useEffect(() => {
-    console.log('StoreData state updated:', storeData)
-  }, [storeData])
+  }, [auth.token, auth.storeID, storeId, fetchDashboardData])
 
   const handleRefresh = () => {
     setIsRefreshing(true)

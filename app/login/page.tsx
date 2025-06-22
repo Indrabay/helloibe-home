@@ -1,18 +1,18 @@
 'use client'
 
-import { Center, Card, Button, Field, Stack, Input, Flex, Mark, Text } from '@chakra-ui/react'
+import { Center, Card, Button, Field, Stack, Input, Text, Mark } from '@chakra-ui/react'
 import { PasswordInput } from "@/components/ui/password-input"
 import React, { useState } from 'react'
 import { logIn, AuthState } from '@/redux/features/auth'
 import { useDispatch } from 'react-redux'
-import { AppDispatch, useAppSelector } from '@/redux/store'
+import { AppDispatch } from '@/redux/store'
 import { useRouter } from 'next/navigation'
 import { toaster } from '@/components/ui/toaster'
 
-const page = () => {
-  var [email, setEmail] = useState('')
-  var [password, setPassword] = useState('')
-  var [isLoading, setIsLoading] = useState(false)
+const LoginPage = () => {
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
+  const [isLoading, setIsLoading] = useState(false)
 
   const dispatch = useDispatch<AppDispatch>();
 
@@ -65,7 +65,7 @@ const page = () => {
       const responseData = data.data
 
       // Handle successful login
-      var storeId = 1
+      const storeId = 1
       // TODO: handle for super admin, which have more than 1 store or no store at all
       const payload = {
         token: responseData.token,
@@ -130,4 +130,4 @@ const page = () => {
   )
 }
 
-export default page
+export default LoginPage
