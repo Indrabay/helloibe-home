@@ -23,6 +23,7 @@ const Porfolio = () => {
         textTransform={'uppercase'}
         pb={'20px'}
         hideBelow={'md'}
+        color={'white'}
       ><Mark color={'var(--color-primary)'}>{'>'}</Mark> my little experiments</Heading>
       <HStack overflow={'auto'} hideBelow={'md'}>
         <Group>
