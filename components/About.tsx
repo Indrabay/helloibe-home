@@ -27,6 +27,7 @@ const About = () => {
             fontWeight={'medium'}
             w={'50%'}
             textTransform={'uppercase'}
+            color={'white'}
           ><Mark color={'var(--color-primary)'}>{'>'}</Mark> here is little things about me</Heading>
           <Stack w={'50%'}>
             <Flex dir='column' gap={'10px'}>
@@ -51,6 +52,7 @@ const About = () => {
               fontWeight={'medium'}
               textTransform={'uppercase'}
               textDecor={'underline var(--color-primary)'}
+              color={'white'}
             ><Mark color={'var(--color-primary)'}>{'>'}</Mark> here is little things about me</Heading>
                 <Text>Ibe is a backend engineer most of the time with over 8 years of experiences building scalable and modular endpoint. He specialize in clean architecture with maintainable testable code. Currently exploring new ideas and building cool stuff at helloibe.com</Text>
           </VStack>
@@ -90,10 +92,10 @@ const About = () => {
                 </Timeline.Indicator>
               </Timeline.Connector>
               <Timeline.Content>
-                <Timeline.Title>
+                <Timeline.Title color={'white'}>
                   PT. Skyshi Digital Indonesia
                 </Timeline.Title>
-                <Timeline.Description>
+                <Timeline.Description color={'white'}>
                   2017 - 2019
                 </Timeline.Description>
                 <Text>Working with a team to build application for many clients, handle a few redux technologies and mostly doing backend stuff REST Api stuff</Text>
@@ -108,10 +110,10 @@ const About = () => {
                 </Timeline.Indicator>
               </Timeline.Connector>
               <Timeline.Content>
-                <Timeline.Title>
+                <Timeline.Title color={'white'}>
                   PT. Bukalapak
                 </Timeline.Title>
-                <Timeline.Description>
+                <Timeline.Description color={'white'}>
                   2019 - 2023
                 </Timeline.Description>
                 <Text>Handle supply chain of warehouse of online-to-offline goods, make sure all the stock in warehouse is in place. Create monitor and alerting to early detect some defect data or flow in stock</Text>
@@ -126,10 +128,10 @@ const About = () => {
                 </Timeline.Indicator>
               </Timeline.Connector>
               <Timeline.Content>
-                <Timeline.Title>
+                <Timeline.Title color={'white'}>
                   PT. Allofresh
                 </Timeline.Title>
-                <Timeline.Description>
+                <Timeline.Description color={'white'}>
                   2023 - current
                 </Timeline.Description>
                 <Text>Make sure stock, price and promo reliability by sync between two organizations, also doing integration with a lot of vendor to handle warehouse management and ERP</Text>

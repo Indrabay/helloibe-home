@@ -14,13 +14,13 @@ const Footer = () => {
       direction={'row'}
       justifyContent={'space-between'}
       >
-        <Text textStyle={'sm'} pt={'5px'}>&copy; 2025 helloibe.com. All rights reserved.</Text>
+        <Text textStyle={'sm'} pt={'5px'} color={'white'}>&copy; 2025 helloibe.com. All rights reserved.</Text>
         <Group>
           <HStack>
-            <Link href='https://www.instagram.com/helloibe.me'><FaInstagram/></Link>
-            <Link href='https://github.com/Indrabay'><FaGithub/></Link>
-            <Link href='https://www.linkedin.com/in/indrabay/'><FaLinkedin/></Link>
-            <Link href='https://x.com/ibexoxo'><BsTwitterX/></Link>
+            <Link href='https://www.instagram.com/helloibe.me' color={'white'}><FaInstagram/></Link>
+            <Link href='https://github.com/Indrabay' color={'white'}><FaGithub/></Link>
+            <Link href='https://www.linkedin.com/in/indrabay/' color={'white'}><FaLinkedin/></Link>
+            <Link href='https://x.com/ibexoxo' color={'white'}><BsTwitterX/></Link>
           </HStack>
         </Group>
       </Flex>
@@ -29,13 +29,13 @@ const Footer = () => {
       justifyContent={'center'}
       pb='20px'
       >
-        <Text textStyle={'sm'} pt={'5px'}>&copy; 2025 helloibe.com. All rights reserved.</Text>
+        <Text textStyle={'sm'} pt={'5px'} color={'white'}>&copy; 2025 helloibe.com. All rights reserved.</Text>
         <Group>
           <HStack>
-            <Link href='https://www.instagram.com/helloibe.me'><FaInstagram/></Link>
-            <Link href='https://github.com/Indrabay'><FaGithub/></Link>
-            <Link href='https://www.linkedin.com/in/indrabay/'><FaLinkedin/></Link>
-            <Link href='https://x.com/ibexoxo'><BsTwitterX/></Link>
+            <Link href='https://www.instagram.com/helloibe.me' color={'white'}><FaInstagram/></Link>
+            <Link href='https://github.com/Indrabay' color={'white'}><FaGithub/></Link>
+            <Link href='https://www.linkedin.com/in/indrabay/' color={'white'}><FaLinkedin/></Link>
+            <Link href='https://x.com/ibexoxo' color={'white'}><BsTwitterX/></Link>
           </HStack>
         </Group>
       </VStack>
