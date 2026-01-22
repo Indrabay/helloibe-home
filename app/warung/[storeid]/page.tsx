@@ -15,10 +15,25 @@ import {
   Button,
   Badge,
   VStack,
-  IconButton
+  IconButton,
+  Card,
+  HStack,
+  Avatar,
+  Separator
 } from '@chakra-ui/react'
+import { useColorModeValue } from '@/components/ui/color-mode'
 import { toaster } from '@/components/ui/toaster'
 import Sidebar from '@/components/Sidebar'
+import { 
+  FiRefreshCw, 
+  FiTrendingUp, 
+  FiPackage, 
+  FiDollarSign,
+  FiUsers,
+  FiShoppingCart,
+  FiArrowRight,
+  FiMenu
+} from 'react-icons/fi'
 
 interface StoreData {
   product_count: number
@@ -51,6 +66,13 @@ const DashboardPage = () => {
   const [isRefreshing, setIsRefreshing] = useState(false)
   const [activeMenu, setActiveMenu] = useState('dashboard')
   const [showMobileMenu, setShowMobileMenu] = useState(false)
+
+  // Color mode values
+  const bgColor = useColorModeValue('gray.50', 'gray.900')
+  const cardBg = useColorModeValue('white', 'gray.800')
+  const borderColor = useColorModeValue('gray.200', 'gray.700')
+  const textColor = useColorModeValue('gray.800', 'white')
+  const textSecondary = useColorModeValue('gray.600', 'gray.400')
 
   // Check if user is authenticated and has access to this store
   useEffect(() => {
@@ -150,14 +172,17 @@ const DashboardPage = () => {
 
   if (isLoading) {
     return (
-      <Flex justify="center" align="center" minH="100vh" fontFamily={'"Fira Code", monospace !important'}>
-        <Spinner size="xl" />
+      <Flex justify="center" align="center" minH="100vh" bg={bgColor}>
+        <VStack gap={4}>
+          <Spinner size="xl" color="var(--color-primary)" />
+          <Text color={textSecondary} fontSize="lg">Loading dashboard...</Text>
+        </VStack>
       </Flex>
     )
   }
 
   return (
-    <Flex minH="100vh" bg="var(--color-primary-background)" fontFamily={'"Fira Code", monospace !important'}>
+    <Flex minH="100vh" bg={bgColor} fontFamily={'"Fira Code", monospace !important'}>
       {/* Desktop Sidebar - Hidden on mobile */}
       <Box display={{ base: 'none', md: 'block' }}>
         <Sidebar
@@ -187,10 +212,9 @@ const DashboardPage = () => {
             left={0}
             w="280px"
             h="100vh"
-            bg="rgba(255, 255, 255, 0.1)"
-            backdropFilter="blur(10px)"
+            bg={cardBg}
             borderRight="1px"
-            borderColor="rgba(255, 255, 255, 0.2)"
+            borderColor={borderColor}
             zIndex={51}
             onClick={(e) => e.stopPropagation()}
           >
@@ -210,7 +234,7 @@ const DashboardPage = () => {
 
       {/* Main Content */}
       <Box 
-        ml={{ base: 0, md: "250px" }} 
+        ml={{ base: 0, md: "300px" }} 
         flex={1} 
         p={{ base: 4, md: 8 }}
         w="full"
@@ -224,115 +248,250 @@ const DashboardPage = () => {
               aria-label="Open menu"
               onClick={() => setShowMobileMenu(true)}
               variant="ghost"
-              color="white"
-              _hover={{ bg: 'rgba(255, 255, 255, 0.1)' }}
+              color={textColor}
+              _hover={{ bg: 'gray.100' }}
             >
-              ☰
+              <FiMenu />
             </IconButton>
             <Box>
-              <Heading size="lg" mb={2} color="white">Store Dashboard</Heading>
-              <Text color="rgba(255, 255, 255, 0.7)" fontSize={{ base: 'sm', md: 'md' }}>Welcome back, {auth.username}</Text>
+              <Heading size="lg" mb={2} color={textColor}>Dashboard</Heading>
+              <Text color={textSecondary} fontSize={{ base: 'sm', md: 'md' }}>
+                Welcome back, {auth.username} 👋
+              </Text>
             </Box>
           </Flex>
           <Button 
             variant="outline" 
             onClick={handleRefresh} 
-            loading={isRefreshing} 
+            loading={isRefreshing}
             color="var(--color-primary)" 
             borderColor="var(--color-primary)" 
             _hover={{ bg: 'rgba(24, 242, 178, 0.1)' }}
             size={{ base: 'sm', md: 'md' }}
           >
+            <FiRefreshCw />
             Refresh
           </Button>
         </Flex>
 
-        {/* Store Data Cards */}
+        {/* Stats Cards */}
         {storeData && (
           <Grid 
-            templateColumns={{ base: "1fr", md: "repeat(2, 1fr)" }} 
-            gap={{ base: 4, md: 6 }} 
+            templateColumns={{ base: "1fr", md: "repeat(2, 1fr)", lg: "repeat(4, 1fr)" }} 
+            gap={6} 
             mb={8}
           >
-            <Box p={{ base: 4, md: 6 }} border="1px" borderColor="rgba(255, 255, 255, 0.2)" borderRadius="md" bg="rgba(255, 255, 255, 0.1)" backdropFilter="blur(10px)">
-              <Stack gap={2}>
-                <Text fontSize="sm" color="rgba(255, 255, 255, 0.7)">Total Products</Text>
-                <Text fontSize={{ base: "2xl", md: "3xl" }} fontWeight="bold" color="var(--color-primary)">{storeData.product_count}</Text>
-              </Stack>
-            </Box>
+            <Card.Root bg={cardBg} border="1px" borderColor={borderColor} borderRadius="xl" p={6}>
+              <Card.Body>
+                <Box position="relative">
+                  <VStack align="flex-start" gap={2}>
+                    <Text color={textSecondary} fontSize="sm" fontWeight="medium">
+                      Total Products
+                    </Text>
+                    <Text color="var(--color-primary)" fontSize="3xl" fontWeight="bold">
+                      {storeData.product_count}
+                    </Text>
+                    <HStack gap={1}>
+                      <Text color="green.500" fontSize="sm">↗</Text>
+                      <Text color="green.500" fontSize="sm">12.5%</Text>
+                    </HStack>
+                  </VStack>
+                  <Box position="absolute" top={0} right={0}>
+                    <Box
+                      p={3}
+                      bg="rgba(24, 242, 178, 0.1)"
+                      borderRadius="lg"
+                      color="var(--color-primary)"
+                    >
+                      <FiPackage size={20} />
+                    </Box>
+                  </Box>
+                </Box>
+              </Card.Body>
+            </Card.Root>
 
-            <Box p={{ base: 4, md: 6 }} border="1px" borderColor="rgba(255, 255, 255, 0.2)" borderRadius="md" bg="rgba(255, 255, 255, 0.1)" backdropFilter="blur(10px)">
-              <Stack gap={2}>
-                <Text fontSize="sm" color="rgba(255, 255, 255, 0.7)">Total Prices</Text>
-                <Text fontSize={{ base: "2xl", md: "3xl" }} fontWeight="bold" color="var(--color-primary)">{storeData.price_count}</Text>
-              </Stack>
-            </Box>
+            <Card.Root bg={cardBg} border="1px" borderColor={borderColor} borderRadius="xl" p={6}>
+              <Card.Body>
+                <Box position="relative">
+                  <VStack align="flex-start" gap={2}>
+                    <Text color={textSecondary} fontSize="sm" fontWeight="medium">
+                      Total Prices
+                    </Text>
+                    <Text color="var(--color-primary)" fontSize="3xl" fontWeight="bold">
+                      {storeData.price_count}
+                    </Text>
+                    <HStack gap={1}>
+                      <Text color="green.500" fontSize="sm">↗</Text>
+                      <Text color="green.500" fontSize="sm">8.2%</Text>
+                    </HStack>
+                  </VStack>
+                  <Box position="absolute" top={0} right={0}>
+                    <Box
+                      p={3}
+                      bg="rgba(24, 242, 178, 0.1)"
+                      borderRadius="lg"
+                      color="var(--color-primary)"
+                    >
+                      <FiDollarSign size={20} />
+                    </Box>
+                  </Box>
+                </Box>
+              </Card.Body>
+            </Card.Root>
+
+            <Card.Root bg={cardBg} border="1px" borderColor={borderColor} borderRadius="xl" p={6}>
+              <Card.Body>
+                <Box position="relative">
+                  <VStack align="flex-start" gap={2}>
+                    <Text color={textSecondary} fontSize="sm" fontWeight="medium">
+                      Active Users
+                    </Text>
+                    <Text color="var(--color-primary)" fontSize="3xl" fontWeight="bold">
+                      24
+                    </Text>
+                    <HStack gap={1}>
+                      <Text color="green.500" fontSize="sm">↗</Text>
+                      <Text color="green.500" fontSize="sm">5.3%</Text>
+                    </HStack>
+                  </VStack>
+                  <Box position="absolute" top={0} right={0}>
+                    <Box
+                      p={3}
+                      bg="rgba(24, 242, 178, 0.1)"
+                      borderRadius="lg"
+                      color="var(--color-primary)"
+                    >
+                      <FiUsers size={20} />
+                    </Box>
+                  </Box>
+                </Box>
+              </Card.Body>
+            </Card.Root>
+
+            <Card.Root bg={cardBg} border="1px" borderColor={borderColor} borderRadius="xl" p={6}>
+              <Card.Body>
+                <Box position="relative">
+                  <VStack align="flex-start" gap={2}>
+                    <Text color={textSecondary} fontSize="sm" fontWeight="medium">
+                      Sales Today
+                    </Text>
+                    <Text color="var(--color-primary)" fontSize="3xl" fontWeight="bold">
+                      ₱45.2K
+                    </Text>
+                    <HStack gap={1}>
+                      <Text color="green.500" fontSize="sm">↗</Text>
+                      <Text color="green.500" fontSize="sm">15.7%</Text>
+                    </HStack>
+                  </VStack>
+                  <Box position="absolute" top={0} right={0}>
+                    <Box
+                      p={3}
+                      bg="rgba(24, 242, 178, 0.1)"
+                      borderRadius="lg"
+                      color="var(--color-primary)"
+                    >
+                      <FiShoppingCart size={20} />
+                    </Box>
+                  </Box>
+                </Box>
+              </Card.Body>
+            </Card.Root>
           </Grid>
         )}
 
         {/* Recent Products */}
-        <Box p={{ base: 4, md: 6 }} border="1px" borderColor="rgba(255, 255, 255, 0.2)" borderRadius="md" bg="rgba(255, 255, 255, 0.1)" backdropFilter="blur(10px)">
-          <Flex justify="space-between" align="center" mb={6}>
-            <Heading size="md" color="white">Recent Products</Heading>
-            <Button 
-              variant="outline" 
-              size="sm" 
-              color="var(--color-primary)" 
-              borderColor="var(--color-primary)" 
-              _hover={{ bg: 'rgba(24, 242, 178, 0.1)' }}
-            >
-              View All Products
-            </Button>
-          </Flex>
-
-          {recentProducts.length > 0 ? (
-            <Stack gap={4}>
-              {recentProducts.map((product) => (
-                <Flex 
-                  key={product.id} 
-                  direction={{ base: 'column', md: 'row' }}
-                  justify="space-between" 
-                  align={{ base: 'flex-start', md: 'center' }} 
-                  p={4} 
-                  border="1px" 
-                  borderColor="rgba(255, 255, 255, 0.2)" 
-                  borderRadius="md" 
-                  bg="rgba(255, 255, 255, 0.05)"
-                  gap={{ base: 3, md: 4 }}
-                >
-                  <Box flex={1}>
-                    <Text fontWeight="medium" color="white" fontSize={{ base: 'sm', md: 'md' }}>{product.name}</Text>
-                    <Text color="rgba(255, 255, 255, 0.6)" fontSize={{ base: 'xs', md: 'sm' }}>
-                      SKU: {product.sku} | Barcode: {product.barcode}
-                    </Text>
+        <Card.Root bg={cardBg} border="1px" borderColor={borderColor} borderRadius="xl" p={6}>
+          <Card.Header>
+            <Flex justify="space-between" align="center">
+              <Box>
+                <Card.Title color={textColor} fontSize="xl" fontWeight="bold">
+                  Recent Products
+                </Card.Title>
+                <Card.Description color={textSecondary} fontSize="sm">
+                  Latest products added to your store
+                </Card.Description>
+              </Box>
+              <Button 
+                variant="outline" 
+                size="sm" 
+                color="var(--color-primary)" 
+                borderColor="var(--color-primary)" 
+                _hover={{ bg: 'rgba(24, 242, 178, 0.1)' }}
+              >
+                View All
+                <FiArrowRight />
+              </Button>
+            </Flex>
+          </Card.Header>
+          <Card.Body>
+            {recentProducts.length > 0 ? (
+              <VStack gap={4} align="stretch">
+                {recentProducts.map((product, index) => (
+                  <Box key={product.id}>
+                    <Flex 
+                      justify="space-between" 
+                      align="center" 
+                      p={4} 
+                      bg="gray.50"
+                      borderRadius="lg"
+                      _hover={{ bg: 'gray.100' }}
+                      transition="all 0.2s"
+                    >
+                      <HStack gap={4} flex={1}>
+                        <Avatar.Root size="sm" bg="var(--color-primary)" color="white">
+                          <Avatar.Fallback>{product.name.charAt(0)}</Avatar.Fallback>
+                        </Avatar.Root>
+                        <Box>
+                          <Text fontWeight="semibold" color={textColor} fontSize="md">
+                            {product.name}
+                          </Text>
+                          <Text color={textSecondary} fontSize="sm">
+                            SKU: {product.sku} • Barcode: {product.barcode}
+                          </Text>
+                        </Box>
+                      </HStack>
+                      <VStack align="flex-end" gap={1}>
+                        <Text fontWeight="bold" color="var(--color-primary)" fontSize="lg">
+                          ₱{product.selling_price.toLocaleString()}
+                        </Text>
+                        <Text color={textSecondary} fontSize="xs">
+                          Cost: ₱{product.purchase_price.toLocaleString()}
+                        </Text>
+                        <Badge colorPalette="blue" fontSize="xs">
+                          {product.created_by}
+                        </Badge>
+                      </VStack>
+                    </Flex>
+                    {index < recentProducts.length - 1 && (
+                      <Separator my={2} borderColor={borderColor} />
+                    )}
                   </Box>
-                  <Flex 
-                    direction={{ base: 'column', md: 'row' }}
-                    align={{ base: 'flex-start', md: 'center' }} 
-                    gap={{ base: 2, md: 4 }}
-                    w={{ base: 'full', md: 'auto' }}
-                  >
-                    <VStack align={{ base: 'flex-start', md: 'flex-end' }} gap={1}>
-                      <Text fontWeight="medium" color="var(--color-primary)" fontSize={{ base: 'xs', md: 'sm' }}>
-                        Harga Jual: Rp {product.selling_price}
-                      </Text>
-                      <Text color="rgba(255, 255, 255, 0.6)" fontSize={{ base: 'xs', md: 'xs' }}>
-                        Harga Beli: Rp {product.purchase_price}
-                      </Text>
-                    </VStack>
-                    <Badge colorScheme="blue" fontSize={{ base: 'xs', md: 'sm' }}>
-                      {product.created_by}
-                    </Badge>
-                  </Flex>
-                </Flex>
-              ))}
-            </Stack>
-          ) : (
-            <Text color="rgba(255, 255, 255, 0.5)" textAlign="center" py={8}>
-              No products found. Add your first product to get started.
-            </Text>
-          )}
-        </Box>
+                ))}
+              </VStack>
+            ) : (
+              <VStack gap={4} py={8}>
+                <Box
+                  p={6}
+                  bg="gray.50"
+                  borderRadius="full"
+                  color={textSecondary}
+                >
+                  <FiPackage size={32} />
+                </Box>
+                <Text color={textSecondary} textAlign="center" fontSize="md">
+                  No products found. Add your first product to get started.
+                </Text>
+                <Button 
+                  colorPalette="blue" 
+                  variant="outline"
+                  size="sm"
+                >
+                  Add Product
+                </Button>
+              </VStack>
+            )}
+          </Card.Body>
+        </Card.Root>
       </Box>
     </Flex>
   )
